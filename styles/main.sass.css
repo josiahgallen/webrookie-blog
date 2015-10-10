@@ -1,0 +1,63 @@
+body {
+  margin: 0;
+  background-color: #3BA3FF; }
+
+.navbar {
+  border-radius: 0;
+  color: #CC1B64; }
+  .navbar .active > a:focus {
+    background-color: #3BA3FF; }
+  .navbar .dropdown-menu {
+    background-color: #E54231; }
+    .navbar .dropdown-menu li a {
+      color: #3BA3FF; }
+
+.navbar-default {
+  background-color: #E54231;
+  border: none; }
+  .navbar-default .navbar-brand {
+    font-family: "Orbitron", sans-serif;
+    color: #3BA3FF;
+    font-weight: 700; }
+    .navbar-default .navbar-brand .highlight {
+      color: #FFBE00; }
+  .navbar-default .navbar-toggle {
+    border-color: #3BA3FF;
+    background-color: #FFBE00;
+    border: none; }
+    .navbar-default .navbar-toggle .icon-bar {
+      background-color: #3BA3FF; }
+  .navbar-default span {
+    color: #3BA3FF; }
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
+  background-color: #FFBE00; }
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover {
+  background-color: #FFBE00; }
+
+.navbar .dropdown-menu li a:hover {
+  background-color: #FFBE00; }
+
+.well {
+  background-color: rgba(229, 66, 49, 0.8);
+  color: #FFBE00; }
+  .well h1 {
+    font-family: "Orbitron", sans-serif; }
+
+.brLogo {
+  font-family: "Orbitron", sans-serif; }
+  .brLogo .highlight {
+    color: #3BA3FF; }
+
+.btn-default {
+  background-color: #3BA3FF;
+  box-shadow: 5px 5px 2.5px 0px rgba(0, 0, 0, 0.75);
+  float: right;
+  color: #FFBE00;
+  border: none;
+  font-family: "Orbitron", sans-serif; }
+
+.alert-danger {
+  background-color: #E54231;
+  color: #FFBE00; }
