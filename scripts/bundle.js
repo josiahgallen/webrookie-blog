@@ -34077,6 +34077,266 @@ module.exports = require('./lib/React');
 'use strict';
 
 var React = require('react');
+var Backbone = require('backbone');
+var BlogPostModel = require('../models/BlogPostModel');
+
+module.exports = React.createClass({
+	displayName: 'exports',
+
+	render: function render() {
+		return React.createElement(
+			'div',
+			{ className: 'container-fluid' },
+			React.createElement(
+				'div',
+				{ className: 'row' },
+				React.createElement(
+					'div',
+					{ className: 'well well-lg col-xs-12 col-sm-8 col-sm-offset-2' },
+					React.createElement(
+						'h1',
+						null,
+						'BlogRookie'
+					),
+					React.createElement('br', null),
+					React.createElement(
+						'form',
+						{ onSubmit: this.onAdd, className: 'addForm' },
+						React.createElement(
+							'div',
+							{ className: 'form-group col-xs-6' },
+							React.createElement(
+								'label',
+								null,
+								React.createElement('span', { className: 'glyphicon glyphicon-book', 'aria-hidden': 'true' })
+							),
+							React.createElement('input', { type: 'text', ref: 'title', className: 'form-control', placeholder: 'Title' })
+						),
+						React.createElement(
+							'div',
+							{ className: 'form-group col-xs-6' },
+							React.createElement(
+								'label',
+								null,
+								React.createElement('span', { className: 'glyphicon glyphicon-question-sign', 'aria-hidden': 'true' })
+							),
+							React.createElement('input', { type: 'text', ref: 'category', className: 'form-control', placeholder: 'Category' })
+						),
+						React.createElement(
+							'div',
+							{ className: 'form-group col-xs-12' },
+							React.createElement(
+								'label',
+								{ htmlFor: 'exampleInputPassword1' },
+								React.createElement('span', { className: 'glyphicon glyphicon-pencil', 'aria-hidden': 'true' })
+							),
+							React.createElement('textarea', { className: 'form-control', ref: 'blogPost', rows: '6', placeholder: 'Blog Away...' })
+						),
+						React.createElement(
+							'div',
+							{ className: 'form-group input-group-sm col-xs-3' },
+							React.createElement(
+								'label',
+								null,
+								React.createElement('span', { className: 'glyphicon glyphicon-tag', 'aria-hidden': 'true' })
+							),
+							React.createElement('input', { type: 'text', ref: 'tags', className: 'form-control', placeholder: 'Tags' })
+						),
+						React.createElement(
+							'button',
+							{ type: 'submit', className: 'btn btn-default' },
+							React.createElement(
+								'strong',
+								null,
+								React.createElement('span', { className: 'glyphicon glyphicon-plus', 'aria-hidden': 'true' })
+							)
+						)
+					)
+				)
+			)
+		);
+	},
+	onAdd: function onAdd(e) {
+		e.preventDefault();
+		var newPost = new BlogPostModel({
+			user: Parse.User.current(),
+			firstName: Parse.User.current().get('firstName'),
+			lastName: Parse.User.current().get('lastName'),
+			picture: Parse.User.current().get('picture'),
+			title: this.refs.title.value,
+			category: this.refs.category.value,
+			blogPost: this.refs.blogPost.value,
+			tags: [this.refs.tags.value]
+		});
+		newPost.save();
+		this.refs.title.value = '';
+		this.refs.category.value = '';
+		this.refs.blogPost.value = '';
+		this.refs.tags.value = '';
+		this.props.router.navigate('stayCurrent', { trigger: true });
+	}
+});
+
+},{"../models/BlogPostModel":183,"backbone":1,"react":173}],175:[function(require,module,exports){
+'use strict';
+
+var React = require('react');
+var Backbone = require('backbone');
+var BlogPostModel = require('../models/BlogPostModel');
+
+module.exports = React.createClass({
+	displayName: 'exports',
+
+	getInitialState: function getInitialState() {
+		return {
+			id: this.props.id,
+			currentPost: []
+		};
+	},
+	componentWillMount: function componentWillMount() {
+		var _this = this;
+
+		var query = new Parse.Query(BlogPostModel);
+		query.equalTo('objectId', this.state.id).find().then(function (post) {
+			_this.setState({ currentPost: post });
+		}, function (err) {
+			console.log(err);
+		});
+	},
+	render: function render() {
+		console.log(this.state.id);
+		console.log(this.state.currentPost);
+		var currentPost = this.state.currentPost.map(function (post) {
+			return React.createElement(
+				'div',
+				{ className: 'jumboWrapper blogDetailView' },
+				React.createElement(
+					'div',
+					{ className: 'jumbotron col-xs-offset-1 col-xs-10 col-sm-8 col-sm-offset-2' },
+					React.createElement(
+						'a',
+						{ className: 'profLink', href: '#blogger/' + post.get('user') },
+						React.createElement('img', { src: post.get('picture'), className: 'blogPic' }),
+						React.createElement(
+							'span',
+							null,
+							' ',
+							post.get('firstName') + ' ' + post.get('lastName'),
+							' '
+						)
+					),
+					React.createElement(
+						'span',
+						{ className: 'rightSide' },
+						post.get('category'),
+						' '
+					),
+					React.createElement(
+						'h1',
+						null,
+						post.get('title')
+					),
+					React.createElement(
+						'p',
+						null,
+						post.get('blogPost')
+					),
+					React.createElement(
+						'span',
+						{ className: 'rightSide' },
+						post.get('createdAt').toDateString(),
+						' '
+					),
+					React.createElement(
+						'span',
+						{ className: 'label label-info' },
+						post.get('tags')
+					)
+				)
+			);
+		});
+		return React.createElement(
+			'h1',
+			null,
+			currentPost
+		);
+	}
+});
+
+},{"../models/BlogPostModel":183,"backbone":1,"react":173}],176:[function(require,module,exports){
+'use strict';
+
+var React = require('react');
+var Backbone = require('backbone');
+var BlogPostModel = require('../models/BlogPostModel');
+
+module.exports = React.createClass({
+	displayName: 'exports',
+
+	getInitialState: function getInitialState() {
+		return {
+			newPosts: []
+		};
+	},
+	componentWillMount: function componentWillMount() {
+		var _this = this;
+
+		var query = new Parse.Query(BlogPostModel);
+		query.equalTo('user', Parse.User.current()).find().then(function (post) {
+			_this.setState({ newPosts: post });
+		}, function (err) {
+			console.log(err);
+		});
+	},
+	render: function render() {
+		var newestPosts = this.state.newPosts.map(function (post) {
+			return React.createElement(
+				'div',
+				{ className: 'jumbotron col-xs-offset-1 col-xs-10 col-sm-8 col-sm-offset-2' },
+				React.createElement(
+					'span',
+					null,
+					post.get('createdAt').toDateString(),
+					' '
+				),
+				React.createElement(
+					'h1',
+					null,
+					post.get('title')
+				),
+				React.createElement(
+					'p',
+					null,
+					post.get('blogPost').substring(0, 139) + '...'
+				),
+				React.createElement(
+					'p',
+					null,
+					React.createElement(
+						'a',
+						{ href: '#details/' + post.id, className: 'btn btn-default', dataToggle: 'modal', dataTarget: '#myModal', role: 'button' },
+						'Keep Reading'
+					)
+				),
+				React.createElement(
+					'span',
+					null,
+					post.get('firstName') + ' ' + post.get('lastName')
+				)
+			);
+		});
+		return React.createElement(
+			'div',
+			{ className: 'jumboWrapper' },
+			newestPosts
+		);
+	}
+});
+
+},{"../models/BlogPostModel":183,"backbone":1,"react":173}],177:[function(require,module,exports){
+'use strict';
+
+var React = require('react');
 
 module.exports = React.createClass({
 	displayName: 'exports',
@@ -34090,7 +34350,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"react":173}],175:[function(require,module,exports){
+},{"react":173}],178:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -34128,19 +34388,6 @@ module.exports = React.createClass({
 					'(current)'
 				)
 			)
-		), React.createElement(
-			'li',
-			{ key: 'category', className: currentPage === 'category' ? 'active' : '' },
-			React.createElement(
-				'a',
-				{ href: '#category' },
-				'View by Category',
-				React.createElement(
-					'span',
-					{ className: 'sr-only' },
-					'(current)'
-				)
-			)
 		)];
 		var dropDownLinks = [];
 
@@ -34152,7 +34399,16 @@ module.exports = React.createClass({
 				React.createElement(
 					'a',
 					{ href: '#add', key: 'add' },
-					'+Add Blog Post'
+					'Post'
+				)
+			));
+			dropDownLinks.push(React.createElement(
+				'li',
+				null,
+				React.createElement(
+					'a',
+					{ href: '#profile', key: 'profile' },
+					'Profile'
 				)
 			));
 			dropDownLinks.push(React.createElement('li', { key: 'separator', role: 'separator', className: 'divider' }));
@@ -34188,7 +34444,7 @@ module.exports = React.createClass({
 
 		return React.createElement(
 			'nav',
-			{ className: 'navbar navbar-default' },
+			{ className: 'navbar navbar-default navbar-fixed-top' },
 			React.createElement(
 				'div',
 				{ className: 'container-fluid' },
@@ -34254,7 +34510,187 @@ module.exports = React.createClass({
 	}
 });
 
-},{"backbone":1,"react":173}],176:[function(require,module,exports){
+},{"backbone":1,"react":173}],179:[function(require,module,exports){
+'use strict';
+
+var React = require('react');
+var Backbone = require('backbone');
+var BlogPostModel = require('../models/BlogPostModel');
+
+module.exports = React.createClass({
+	displayName: 'exports',
+
+	getInitialState: function getInitialState() {
+		return {
+			newPosts: []
+		};
+	},
+	componentWillMount: function componentWillMount() {
+		var _this = this;
+
+		var query = new Parse.Query(BlogPostModel);
+		query.descending('createdAt').limit(20).find().then(function (post) {
+			_this.setState({ newPosts: post });
+		}, function (err) {
+			console.log(err);
+		});
+	},
+	render: function render() {
+		var newestPosts = this.state.newPosts.map(function (post) {
+			return React.createElement(
+				'div',
+				{ className: 'jumbotron col-xs-offset-1 col-xs-10 col-sm-8 col-sm-offset-2' },
+				React.createElement(
+					'span',
+					null,
+					post.get('createdAt').toDateString(),
+					' '
+				),
+				React.createElement(
+					'h1',
+					null,
+					post.get('title')
+				),
+				React.createElement(
+					'p',
+					null,
+					post.get('blogPost').substring(0, 139) + '...'
+				),
+				React.createElement(
+					'p',
+					null,
+					React.createElement(
+						'a',
+						{ href: '#details/' + post.id, className: 'btn btn-default', dataToggle: 'modal', dataTarget: '#myModal', role: 'button' },
+						'Keep Reading'
+					)
+				),
+				React.createElement(
+					'span',
+					null,
+					post.get('firstName') + ' ' + post.get('lastName')
+				)
+			);
+		});
+		return React.createElement(
+			'div',
+			{ className: 'jumboWrapper' },
+			React.createElement(
+				'div',
+				{ className: 'jumbotron heroImage col-xs-12' },
+				React.createElement(
+					'h1',
+					null,
+					'Blog',
+					React.createElement(
+						'span',
+						{ className: 'highlight' },
+						'Rookie'
+					)
+				)
+			),
+			newestPosts
+		);
+	}
+});
+
+},{"../models/BlogPostModel":183,"backbone":1,"react":173}],180:[function(require,module,exports){
+'use strict';
+
+var React = require('react');
+var Backbone = require('backbone');
+var BlogPostModel = require('../models/BlogPostModel');
+
+module.exports = React.createClass({
+	displayName: 'exports',
+
+	getInitialState: function getInitialState() {
+		return {
+			newPosts: []
+		};
+	},
+	componentWillMount: function componentWillMount() {
+		var _this = this;
+
+		var query = new Parse.Query(BlogPostModel);
+		query.equalTo('user', Parse.User.current()).find().then(function (post) {
+			_this.setState({ newPosts: post });
+		}, function (err) {
+			console.log(err);
+		});
+	},
+	render: function render() {
+		var myPosts = this.state.newPosts.map(function (post) {
+			return React.createElement(
+				'div',
+				{ className: 'jumbotron col-xs-offset-1 col-xs-10 col-sm-8 col-sm-offset-2' },
+				React.createElement(
+					'span',
+					null,
+					post.get('createdAt').toDateString(),
+					' '
+				),
+				React.createElement(
+					'h1',
+					null,
+					post.get('title')
+				),
+				React.createElement(
+					'p',
+					null,
+					post.get('blogPost')
+				),
+				React.createElement(
+					'span',
+					null,
+					post.get('firstName') + ' ' + post.get('lastName')
+				)
+			);
+		});
+		return React.createElement(
+			'div',
+			null,
+			React.createElement(
+				'div',
+				{ className: 'jumboWrapper' },
+				React.createElement(
+					'div',
+					{ className: 'panel panel-default col-xs-offset-1 col-xs-10' },
+					React.createElement(
+						'div',
+						{ className: 'panel-heading' },
+						React.createElement(
+							'h3',
+							null,
+							Parse.User.current().get('firstName'),
+							' ',
+							Parse.User.current().get('lastName') + '\'s Profile'
+						),
+						React.createElement('img', { src: Parse.User.current().get('picture') })
+					),
+					React.createElement('div', { className: 'panel-body' }),
+					React.createElement(
+						'ul',
+						{ className: 'list-group' },
+						React.createElement(
+							'li',
+							{ className: 'list-group-item' },
+							Parse.User.current().get('username')
+						),
+						React.createElement(
+							'li',
+							{ className: 'list-group-item' },
+							'Blogging since ' + Parse.User.current().get('createdAt').toDateString()
+						)
+					)
+				),
+				myPosts
+			)
+		);
+	}
+});
+
+},{"../models/BlogPostModel":183,"backbone":1,"react":173}],181:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -34302,7 +34738,7 @@ module.exports = React.createClass({
 					React.createElement(
 						'label',
 						{ htmlFor: 'exampleInputEmail1' },
-						'Username'
+						React.createElement('span', { className: 'glyphicon glyphicon-user', 'aria-hidden': 'true' })
 					),
 					React.createElement('input', { type: 'email', ref: 'email', className: 'form-control', id: 'exampleInputEmail1', placeholder: 'Email' })
 				),
@@ -34312,7 +34748,7 @@ module.exports = React.createClass({
 					React.createElement(
 						'label',
 						{ htmlFor: 'exampleInputPassword1' },
-						'Password'
+						React.createElement('span', { className: 'glyphicon glyphicon-barcode', 'aria-hidden': 'true' })
 					),
 					React.createElement('input', { type: 'password', ref: 'password', className: 'form-control', id: 'exampleInputPassword1', placeholder: 'Password' })
 				),
@@ -34364,53 +34800,53 @@ module.exports = React.createClass({
 				{ onSubmit: this.onRegister },
 				React.createElement(
 					'div',
-					{ className: 'form-group' },
+					{ className: 'form-group col-xs-6' },
 					React.createElement(
 						'label',
 						null,
-						'First Name'
+						React.createElement('span', { className: 'glyphicon glyphicon-user', 'aria-hidden': 'true' })
 					),
 					React.createElement('input', { type: 'text', ref: 'fName', className: 'form-control', placeholder: 'First Name' })
 				),
 				React.createElement(
 					'div',
-					{ className: 'form-group' },
+					{ className: 'form-group col-xs-6' },
 					React.createElement(
 						'label',
 						null,
-						'Last Name'
+						React.createElement('span', { className: 'glyphicon glyphicon-user', 'aria-hidden': 'true' })
 					),
 					React.createElement('input', { type: 'text', ref: 'lName', className: 'form-control', placeholder: 'Last Name' })
 				),
 				React.createElement(
 					'div',
-					{ className: 'form-group' },
+					{ className: 'form-group col-xs-12' },
 					React.createElement(
 						'label',
 						{ htmlFor: 'exampleInputEmail1' },
-						'Email address'
+						'@'
 					),
 					React.createElement('input', { type: 'email', ref: 'email', className: 'form-control', id: 'exampleInputEmail1', placeholder: 'Email' })
 				),
 				React.createElement(
 					'div',
-					{ className: 'form-group' },
+					{ className: 'form-group col-xs-12' },
 					React.createElement(
 						'label',
 						{ htmlFor: 'exampleInputPassword1' },
-						'Password'
+						React.createElement('span', { className: 'glyphicon glyphicon-barcode', 'aria-hidden': 'true' })
 					),
 					React.createElement('input', { type: 'password', ref: 'password', className: 'form-control', id: 'exampleInputPassword1', placeholder: 'Password' })
 				),
 				React.createElement(
 					'div',
-					{ className: 'form-group' },
+					{ className: 'form-group col-xs-12' },
 					React.createElement(
 						'label',
 						null,
-						'Profile Picture'
+						React.createElement('span', { className: 'glyphicon glyphicon-picture', 'aria-hidden': 'true' })
 					),
-					React.createElement('input', { type: 'text', ref: 'pic', className: 'form-control', placeholder: 'Picture URL' })
+					React.createElement('input', { type: 'text', ref: 'pic', className: 'form-control', placeholder: 'Profile Pic' })
 				),
 				React.createElement(
 					'button',
@@ -34428,18 +34864,16 @@ module.exports = React.createClass({
 		} else if (currentPage === 'login') {
 			currentForm = loginForm;
 		}
-		if (this.state.loading) {
-			loading = React.createElement(LoadingComponent, null);
-			currentForm = null;
-		}
+		// if (this.state.loading) {
+		// 	currentForm = null;
+		// }
 		return React.createElement(
 			'div',
 			{ className: 'container-fluid' },
 			React.createElement(
 				'div',
 				{ className: 'row' },
-				currentForm,
-				loading
+				currentForm
 			)
 		);
 	},
@@ -34457,7 +34891,7 @@ module.exports = React.createClass({
 			picture: this.refs.pic.value
 		}, {
 			success: function success(u) {
-				_this.props.router.navigate('add', { trigger: true });
+				_this.props.router.navigate('profile', { trigger: true });
 			},
 			error: function error(u, _error) {
 				_this.setState({
@@ -34473,7 +34907,7 @@ module.exports = React.createClass({
 		var user = new Parse.User();
 		Parse.User.logIn(this.refs.email.value, this.refs.password.value, {
 			success: function success(u) {
-				_this2.props.router.navigate('add', { trigger: true });
+				_this2.props.router.navigate('stayCurrent', { trigger: true });
 			},
 			error: function error(u, _error2) {
 				_this2.setState({
@@ -34484,7 +34918,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./LoadingComponent":174,"backbone":1,"react":173}],177:[function(require,module,exports){
+},{"./LoadingComponent":177,"backbone":1,"react":173}],182:[function(require,module,exports){
 'use strict';
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -34495,24 +34929,25 @@ require('bootstrap');
 
 var NavComponent = require('./components/NavComponent');
 var RegisterFormComponent = require('./components/RegisterFormComponent');
+var AddBlogPostComponent = require('./components/AddBlogPostComponent');
+var NewPostsComponent = require('./components/NewPostsComponent');
+var BlogDetailsComponent = require('./components/BlogDetailsComponent');
+var BloggerComponent = require('./components/BloggerComponent');
+var ProfileComponent = require('./components/ProfileComponent');
 
 Parse.initialize('RIE85nkokkObzapdlEG1LCBMy6nnLfvpbk22UP2m', 'F6B8q0pSDnwRRt3nZu4klF06LxxQVuM4jBX037fj');
 
 var Router = Backbone.Router.extend({
 	routes: {
-		'': 'home',
+		'': 'current',
 		'stayCurrent': 'current',
 		'login': 'login',
 		'register': 'register',
 		'add': 'add',
-		'category': 'category'
-	},
-	home: function home() {
-		ReactDOM.render(React.createElement(
-			'h1',
-			null,
-			'Home'
-		), document.getElementById('app'));
+		'category': 'category',
+		'profile': 'profile',
+		'blogger/(:blogger)': 'blogger',
+		'details/:id': 'details'
 	},
 	login: function login() {
 		ReactDOM.render(React.createElement(RegisterFormComponent, { router: r }), document.getElementById('app'));
@@ -34521,18 +34956,20 @@ var Router = Backbone.Router.extend({
 		ReactDOM.render(React.createElement(RegisterFormComponent, { router: r }), document.getElementById('app'));
 	},
 	current: function current() {
-		ReactDOM.render(React.createElement(
-			'h1',
-			null,
-			'New Posts'
-		), document.getElementById('app'));
+		ReactDOM.render(React.createElement(NewPostsComponent, { router: r }), document.getElementById('app'));
+	},
+	details: function details(id) {
+		console.log(id);
+		ReactDOM.render(React.createElement(BlogDetailsComponent, { id: id }), document.getElementById('app'));
 	},
 	add: function add() {
-		ReactDOM.render(React.createElement(
-			'h1',
-			null,
-			'Add Post'
-		), document.getElementById('app'));
+		ReactDOM.render(React.createElement(AddBlogPostComponent, { router: r }), document.getElementById('app'));
+	},
+	blogger: function blogger(_blogger) {
+		ReactDOM.render(React.createElement(BloggerComponent, { blogger: _blogger }), document.getElementById('app'));
+	},
+	profile: function profile() {
+		ReactDOM.render(React.createElement(ProfileComponent, null), document.getElementById('app'));
 	},
 	category: function category() {
 		ReactDOM.render(React.createElement(
@@ -34548,7 +34985,14 @@ Backbone.history.start();
 
 ReactDOM.render(React.createElement(NavComponent, { router: r }), document.getElementById('nav'));
 
-},{"./components/NavComponent":175,"./components/RegisterFormComponent":176,"backbone":1,"bootstrap":3,"jquery":17,"react":173,"react-dom":18}]},{},[177])
+},{"./components/AddBlogPostComponent":174,"./components/BlogDetailsComponent":175,"./components/BloggerComponent":176,"./components/NavComponent":178,"./components/NewPostsComponent":179,"./components/ProfileComponent":180,"./components/RegisterFormComponent":181,"backbone":1,"bootstrap":3,"jquery":17,"react":173,"react-dom":18}],183:[function(require,module,exports){
+'use strict';
+
+module.exports = Parse.Object.extend({
+	className: 'blogPost'
+});
+
+},{}]},{},[182])
 
 
 //# sourceMappingURL=bundle.js.map

@@ -26,11 +26,11 @@ module.exports = React.createClass({
 				{error}
 				<form onSubmit={this.onLogin}>
 					<div className="form-group">
-						<label htmlFor="exampleInputEmail1">Username</label>
+						<label htmlFor="exampleInputEmail1"><span className="glyphicon glyphicon-user" aria-hidden="true"></span></label>
 						<input type="email" ref="email" className="form-control" id="exampleInputEmail1" placeholder="Email" />
 					</div>
 					<div className="form-group">
-						<label htmlFor="exampleInputPassword1">Password</label>
+						<label htmlFor="exampleInputPassword1"><span className="glyphicon glyphicon-barcode" aria-hidden="true"></span></label>
 						<input type="password" ref="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
 					</div>
 					<button type="submit" className="btn btn-default"><strong>Submit</strong></button>
@@ -47,25 +47,25 @@ module.exports = React.createClass({
 				{error}
 				<br/>
 				<form onSubmit={this.onRegister}>
-					<div className="form-group">
-						<label>First Name</label>
+					<div className="form-group col-xs-6">
+						<label><span className="glyphicon glyphicon-user" aria-hidden="true"></span></label>
 						<input type="text" ref="fName" className="form-control" placeholder="First Name" />
 					</div>
-					<div className="form-group">
-						<label>Last Name</label>
+					<div className="form-group col-xs-6">
+						<label><span className="glyphicon glyphicon-user" aria-hidden="true"></span></label>
 						<input type="text" ref="lName" className="form-control" placeholder="Last Name" />
 					</div>
-					<div className="form-group">
-						<label htmlFor="exampleInputEmail1">Email address</label>
+					<div className="form-group col-xs-12">
+						<label htmlFor="exampleInputEmail1">@</label>
 						<input type="email" ref="email" className="form-control" id="exampleInputEmail1" placeholder="Email" />
 					</div>
-					<div className="form-group">
-						<label htmlFor="exampleInputPassword1">Password</label>
+					<div className="form-group col-xs-12">
+						<label htmlFor="exampleInputPassword1"><span className="glyphicon glyphicon-barcode" aria-hidden="true"></span></label>
 						<input type="password" ref="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
 					</div>
-					<div className="form-group">
-						<label>Profile Picture</label>
-						<input type="text" ref="pic" className="form-control" placeholder="Picture URL" />
+					<div className="form-group col-xs-12">
+						<label><span className="glyphicon glyphicon-picture" aria-hidden="true"></span></label>
+						<input type="text" ref="pic" className="form-control" placeholder="Profile Pic" />
 					</div>
 					<button type="submit" className="btn btn-default"><strong>Submit</strong></button>
 				</form>
@@ -76,15 +76,14 @@ module.exports = React.createClass({
 		} else if (currentPage === 'login') {
 			currentForm = loginForm
 		}
-		if (this.state.loading) {
-			loading = (<LoadingComponent />);
-			currentForm = null;
-		}
+		// if (this.state.loading) {
+		// 	currentForm = null;
+		// }
 		return (
 			<div className="container-fluid">
 				<div className="row">
 					{currentForm}
-					{loading}
+					
 				</div>
 			</div>
 		)
@@ -102,7 +101,7 @@ module.exports = React.createClass({
 			},
 			{
 				success: (u) => {
-					this.props.router.navigate('add', {trigger: true});
+					this.props.router.navigate('profile', {trigger: true});
 				},
 				error: (u, error) => {
 					this.setState({
@@ -120,7 +119,7 @@ module.exports = React.createClass({
 			this.refs.password.value,
 			{
 				success: (u) => {
-					this.props.router.navigate('add', {trigger: true})
+					this.props.router.navigate('stayCurrent', {trigger: true})
 				},
 				error: (u, error) => {
 					this.setState({

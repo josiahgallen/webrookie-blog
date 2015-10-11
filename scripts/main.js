@@ -8,20 +8,25 @@ require('bootstrap');
 
 var NavComponent = require('./components/NavComponent');
 var RegisterFormComponent = require('./components/RegisterFormComponent');
+var AddBlogPostComponent = require('./components/AddBlogPostComponent');
+var NewPostsComponent = require('./components/NewPostsComponent');
+var BlogDetailsComponent = require('./components/BlogDetailsComponent');
+var BloggerComponent = require('./components/BloggerComponent');
+var ProfileComponent = require('./components/ProfileComponent');
 
 Parse.initialize('RIE85nkokkObzapdlEG1LCBMy6nnLfvpbk22UP2m','F6B8q0pSDnwRRt3nZu4klF06LxxQVuM4jBX037fj');
 
 var Router = Backbone.Router.extend({
 	routes: {
-		'': 'home',
+		'': 'current',
 		'stayCurrent': 'current',
 		'login': 'login',
 		'register': 'register',
 		'add': 'add',
-		'category': 'category'
-	},
-	home: function() {
-		ReactDOM.render(<h1>Home</h1>,document.getElementById('app'));
+		'category': 'category',
+		'profile': 'profile',
+		'blogger/(:blogger)': 'blogger',
+		'details/:id': 'details'
 	},
 	login: function() {
 		ReactDOM.render(<RegisterFormComponent router={r}/>, document.getElementById('app'));
@@ -30,10 +35,20 @@ var Router = Backbone.Router.extend({
 		ReactDOM.render(<RegisterFormComponent router={r}/>, document.getElementById('app'));
 	},
 	current: function() {
-		ReactDOM.render(<h1>New Posts</h1>,document.getElementById('app'));
+		ReactDOM.render(<NewPostsComponent router={r} />,document.getElementById('app'));
+	},
+	details: function(id) {
+		console.log(id);
+		ReactDOM.render(<BlogDetailsComponent id={id} />,document.getElementById('app'));
 	},
 	add: function() {
-		ReactDOM.render(<h1>Add Post</h1>,document.getElementById('app'));
+		ReactDOM.render(<AddBlogPostComponent router={r}/>,document.getElementById('app'));
+	},
+	blogger: function(blogger) {
+		ReactDOM.render(<BloggerComponent blogger={blogger} />,document.getElementById('app'));
+	},
+	profile: function() {
+		ReactDOM.render(<ProfileComponent />,document.getElementById('app'));
 	},
 	category: function() {
 		ReactDOM.render(<h1>category</h1>,document.getElementById('app'));

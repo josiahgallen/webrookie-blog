@@ -17,14 +17,14 @@ module.exports = React.createClass({
 		var currentUser = Parse.User.current();
 
 		var links = [
-			<li key="stayCurrent" className={currentPage === 'stayCurrent' ? 'active' : ''}><a href="#stayCurrent">Stay Current<span className="sr-only">(current)</span></a></li>,
-			<li key="category" className={currentPage === 'category' ? 'active' : ''}><a href="#category">View by Category<span className="sr-only">(current)</span></a></li>
+			<li key="stayCurrent" className={currentPage === 'stayCurrent' ? 'active' : ''}><a href="#stayCurrent">Stay Current<span className="sr-only">(current)</span></a></li>
 		];
 		var dropDownLinks = [];
 
 		if(Parse.User.current()) {
 			console.log('logged in');
-			dropDownLinks.push(<li><a href="#add" key="add">+Add Blog Post</a></li>);
+			dropDownLinks.push(<li><a href="#add" key="add">Post</a></li>);
+			dropDownLinks.push(<li><a href="#profile" key="profile">Profile</a></li>);
 			dropDownLinks.push(<li key="separator" role="separator" className="divider"></li>);
 			dropDownLinks.push(<li><a href="#stayCurrent" onClick={this.logout} key="logout">Logout</a></li>);
 		} else {
@@ -33,7 +33,7 @@ module.exports = React.createClass({
 		}
 
 		return (
-			<nav className="navbar navbar-default">
+			<nav className="navbar navbar-default navbar-fixed-top">
 			  <div className="container-fluid">
 			    <div className="navbar-header">
 			      <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">

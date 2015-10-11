@@ -63,6 +63,7 @@ body{
 .well {
 	background-color: $contentBackgroundColor;
 	color: $bodyFontColor;
+	margin-top: 5em;
 	h1 {
 		font-family: $logoFont;
 	}
@@ -84,4 +85,74 @@ body{
 .alert-danger {
 	background-color: $navBackgroundColor;
 	color: $bodyFontColor;
+}
+
+.addForm {
+	.btn-default {
+		
+		clear: left;
+	}
+}
+.profLink {
+	color: $navFontColor;
+}
+.blogPic {
+		width: 1em;
+		border-radius: 50%;
+	}
+.blogDetailView {
+	margin-top: 3em;
+}
+.rightSide {
+	float: right;
+}
+span .label .label-success {
+	clear: left;
+}
+.jumboWrapper {
+	.jumbotron {
+		background-color: $contentBackgroundColor;
+		color: $bodyFontColor;
+		h1 {
+			font-family: $logoFont;
+		}
+	}
+	.heroImage {
+			margin-top: 0;
+			text-align: center;
+			background-image: url('../images/Running-at-sunset.jpg');
+			background-size: cover;
+			background-repeat: none;
+			padding: 10em 0 7em 0;
+			.highlight {
+				color: $navFontColor;
+			}
+		}
+}
+
+.panel  {
+	margin-top: 5em;
+	background-color: $contentBackgroundColor;
+	border: none;
+	padding-bottom: 1em;
+	.panel-heading {
+		border: none;
+		overflow: hidden;
+		background-color: $bodyFontColor;
+		color: $navFontColor;
+		img {
+			float: right;
+			border-radius: 50%;
+			width: 5em;
+		}
+		h3 {
+			float: left;
+		}
+	}
+}
+
+@media screen and(min-width: 480px) {
+	.jumboWrapper > .heroImage {
+		padding: 17em 0 15em 0;
+	}
 }

@@ -41,7 +41,8 @@ body {
 
 .well {
   background-color: rgba(229, 66, 49, 0.8);
-  color: #FFBE00; }
+  color: #FFBE00;
+  margin-top: 5em; }
   .well h1 {
     font-family: "Orbitron", sans-serif; }
 
@@ -61,3 +62,59 @@ body {
 .alert-danger {
   background-color: #E54231;
   color: #FFBE00; }
+
+.addForm .btn-default {
+  clear: left; }
+
+.profLink {
+  color: #3BA3FF; }
+
+.blogPic {
+  width: 1em;
+  border-radius: 50%; }
+
+.blogDetailView {
+  margin-top: 3em; }
+
+.rightSide {
+  float: right; }
+
+span .label .label-success {
+  clear: left; }
+
+.jumboWrapper .jumbotron {
+  background-color: rgba(229, 66, 49, 0.8);
+  color: #FFBE00; }
+  .jumboWrapper .jumbotron h1 {
+    font-family: "Orbitron", sans-serif; }
+
+.jumboWrapper .heroImage {
+  margin-top: 0;
+  text-align: center;
+  background-image: url("../images/Running-at-sunset.jpg");
+  background-size: cover;
+  background-repeat: none;
+  padding: 10em 0 7em 0; }
+  .jumboWrapper .heroImage .highlight {
+    color: #3BA3FF; }
+
+.panel {
+  margin-top: 5em;
+  background-color: rgba(229, 66, 49, 0.8);
+  border: none;
+  padding-bottom: 1em; }
+  .panel .panel-heading {
+    border: none;
+    overflow: hidden;
+    background-color: #FFBE00;
+    color: #3BA3FF; }
+    .panel .panel-heading img {
+      float: right;
+      border-radius: 50%;
+      width: 5em; }
+    .panel .panel-heading h3 {
+      float: left; }
+
+@media screen and (min-width: 480px) {
+  .jumboWrapper > .heroImage {
+    padding: 17em 0 15em 0; } }
