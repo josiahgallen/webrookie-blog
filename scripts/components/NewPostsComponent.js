@@ -1,44 +1,40 @@
 var React = require('react');
 var Backbone = require('backbone');
 var BlogPostModel = require('../models/BlogPostModel');
+var BlogDetailsComponent = require('./BlogDetailsComponent');
 
 module.exports = React.createClass({
-	getInitialState: function(){
-		return{
-			newPosts: []
-		}
-	},
+	// getInitialState: function(){
+	// 	return{
+	// 		newPosts: []
+	// 	}
+	// },
 	componentWillMount: function() {
-		var query = new Parse.Query(BlogPostModel);
-		query.descending('createdAt').limit(20).find().then(
-				(post) => {
-					this.setState({newPosts: post});
-				},
-				(err) => {
-					console.log(err);
-				}
-			)
+		$('#myModal').on('shown.bs.modal', function () {
+			$('#myInput').show()
+		})
 	},
 	render: function() {
-		var newestPosts = this.state.newPosts.map((post) => {
-			return(
-				<div className="jumbotron col-xs-offset-1 col-xs-10 col-sm-8 col-sm-offset-2">
-					<span>{post.get('createdAt').toDateString()} </span>
-  					<h1>{post.get('title')}</h1>
-  					<p>{post.get('blogPost').substring(0,139)+'...'}</p>
-  					<p><a href={'#details/'+post.id} className="btn btn-default" dataToggle="modal" dataTarget="#myModal" role="button">Keep Reading</a></p>
-  					<span>{post.get('firstName')+' '+ post.get('lastName')}</span>
-				</div>
-			)
-		})
 		return(
-			<div className='jumboWrapper'>
-				<div className="jumbotron heroImage col-xs-12">
-				<h1>Blog<span className="highlight">Rookie</span></h1>
+			<div className="jumbotron col-xs-offset-1 col-xs-10 col-sm-8 col-sm-offset-2">
+				<span>{this.props.post.get('createdAt').toDateString()} </span>
+				<h1>{this.props.post.get('title')}</h1>
+				<p>{this.props.post.get('blogPost').substring(0,139)+'...'}</p>
+				<p><a href={'#stayCurrent'} onClick={this.onModalLaunch} className="btn btn-default" dataToggle="modal" dataTarget="#myModal" role="button">Keep Reading</a></p>
+				<span>{this.props.post.get('firstName')+' '+ this.props.post.get('lastName')}</span>
+				<div id={this.props.post.id} className="modal fade bs-example-modal-lg" tabIndex="-1" role="dialog" ariaLabelledby="myLargeModalLabel">
+					<div className="modal-dialog modal-lg">
+						<div className="modal-content">
+							<div className="jumbotron col-xs-offset-1 col-xs-10 col-sm-8 col-sm-offset-2">
+								<BlogDetailsComponent post={this.props.post}/>
+							</div>
+						</div>
+					</div>
 				</div>
-				{newestPosts}
-				
 			</div>
 		)
+	},
+	onModalLaunch: function() {
+		$('#'+this.props.post.id).modal('show');
 	}
 })

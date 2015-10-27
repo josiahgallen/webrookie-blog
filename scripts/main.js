@@ -9,7 +9,7 @@ require('bootstrap');
 var NavComponent = require('./components/NavComponent');
 var RegisterFormComponent = require('./components/RegisterFormComponent');
 var AddBlogPostComponent = require('./components/AddBlogPostComponent');
-var NewPostsComponent = require('./components/NewPostsComponent');
+var NewPostsPageComponent = require('./components/NewPostsPageComponent');
 var BlogDetailsComponent = require('./components/BlogDetailsComponent');
 var BloggerComponent = require('./components/BloggerComponent');
 var ProfileComponent = require('./components/ProfileComponent');
@@ -35,7 +35,7 @@ var Router = Backbone.Router.extend({
 		ReactDOM.render(<RegisterFormComponent router={r}/>, document.getElementById('app'));
 	},
 	current: function() {
-		ReactDOM.render(<NewPostsComponent router={r} />,document.getElementById('app'));
+		ReactDOM.render(<NewPostsPageComponent router={r} />,document.getElementById('app'));
 	},
 	details: function(id) {
 		console.log(id);

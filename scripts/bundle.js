@@ -34189,8 +34189,7 @@ module.exports = React.createClass({
 
 	getInitialState: function getInitialState() {
 		return {
-			id: this.props.id,
-			currentPost: []
+			id: this.props.id
 		};
 	},
 	componentWillMount: function componentWillMount() {
@@ -34204,61 +34203,48 @@ module.exports = React.createClass({
 		});
 	},
 	render: function render() {
-		console.log(this.state.id);
-		console.log(this.state.currentPost);
-		var currentPost = this.state.currentPost.map(function (post) {
-			return React.createElement(
-				'div',
-				{ className: 'jumboWrapper blogDetailView' },
-				React.createElement(
-					'div',
-					{ className: 'jumbotron col-xs-offset-1 col-xs-10 col-sm-8 col-sm-offset-2' },
-					React.createElement(
-						'a',
-						{ className: 'profLink', href: '#blogger/' + post.get('user') },
-						React.createElement('img', { src: post.get('picture'), className: 'blogPic' }),
-						React.createElement(
-							'span',
-							null,
-							' ',
-							post.get('firstName') + ' ' + post.get('lastName'),
-							' '
-						)
-					),
-					React.createElement(
-						'span',
-						{ className: 'rightSide' },
-						post.get('category'),
-						' '
-					),
-					React.createElement(
-						'h1',
-						null,
-						post.get('title')
-					),
-					React.createElement(
-						'p',
-						null,
-						post.get('blogPost')
-					),
-					React.createElement(
-						'span',
-						{ className: 'rightSide' },
-						post.get('createdAt').toDateString(),
-						' '
-					),
-					React.createElement(
-						'span',
-						{ className: 'label label-info' },
-						post.get('tags')
-					)
-				)
-			);
-		});
 		return React.createElement(
-			'h1',
+			'div',
 			null,
-			currentPost
+			React.createElement(
+				'a',
+				{ className: 'profLink', href: '#blogger/' + this.props.post.get('user') },
+				React.createElement('img', { src: this.props.post.get('picture'), className: 'blogPic' }),
+				React.createElement(
+					'span',
+					null,
+					' ',
+					this.props.post.get('firstName') + ' ' + this.props.post.get('lastName'),
+					' '
+				)
+			),
+			React.createElement(
+				'span',
+				{ className: 'rightSide' },
+				this.props.post.get('category'),
+				' '
+			),
+			React.createElement(
+				'h1',
+				null,
+				this.props.post.get('title')
+			),
+			React.createElement(
+				'p',
+				null,
+				this.props.post.get('blogPost')
+			),
+			React.createElement(
+				'span',
+				{ className: 'rightSide' },
+				this.props.post.get('createdAt').toDateString(),
+				' '
+			),
+			React.createElement(
+				'span',
+				{ className: 'label label-info' },
+				this.props.post.get('tags')
+			)
 		);
 	}
 });
@@ -34334,23 +34320,6 @@ module.exports = React.createClass({
 });
 
 },{"../models/BlogPostModel":183,"backbone":1,"react":173}],177:[function(require,module,exports){
-'use strict';
-
-var React = require('react');
-
-module.exports = React.createClass({
-	displayName: 'exports',
-
-	render: function render() {
-		return React.createElement(
-			'h1',
-			null,
-			'Loading...'
-		);
-	}
-});
-
-},{"react":173}],178:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -34510,12 +34479,92 @@ module.exports = React.createClass({
 	}
 });
 
-},{"backbone":1,"react":173}],179:[function(require,module,exports){
+},{"backbone":1,"react":173}],178:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
 var Backbone = require('backbone');
 var BlogPostModel = require('../models/BlogPostModel');
+var BlogDetailsComponent = require('./BlogDetailsComponent');
+
+module.exports = React.createClass({
+	displayName: 'exports',
+
+	// getInitialState: function(){
+	// 	return{
+	// 		newPosts: []
+	// 	}
+	// },
+	componentWillMount: function componentWillMount() {
+		$('#myModal').on('shown.bs.modal', function () {
+			$('#myInput').show();
+		});
+	},
+	render: function render() {
+		return React.createElement(
+			'div',
+			{ className: 'jumbotron col-xs-offset-1 col-xs-10 col-sm-8 col-sm-offset-2' },
+			React.createElement(
+				'span',
+				null,
+				this.props.post.get('createdAt').toDateString(),
+				' '
+			),
+			React.createElement(
+				'h1',
+				null,
+				this.props.post.get('title')
+			),
+			React.createElement(
+				'p',
+				null,
+				this.props.post.get('blogPost').substring(0, 139) + '...'
+			),
+			React.createElement(
+				'p',
+				null,
+				React.createElement(
+					'a',
+					{ href: '#stayCurrent', onClick: this.onModalLaunch, className: 'btn btn-default', dataToggle: 'modal', dataTarget: '#myModal', role: 'button' },
+					'Keep Reading'
+				)
+			),
+			React.createElement(
+				'span',
+				null,
+				this.props.post.get('firstName') + ' ' + this.props.post.get('lastName')
+			),
+			React.createElement(
+				'div',
+				{ id: this.props.post.id, className: 'modal fade bs-example-modal-lg', tabIndex: '-1', role: 'dialog', ariaLabelledby: 'myLargeModalLabel' },
+				React.createElement(
+					'div',
+					{ className: 'modal-dialog modal-lg' },
+					React.createElement(
+						'div',
+						{ className: 'modal-content' },
+						React.createElement(
+							'div',
+							{ className: 'jumbotron col-xs-offset-1 col-xs-10 col-sm-8 col-sm-offset-2' },
+							React.createElement(BlogDetailsComponent, { post: this.props.post })
+						)
+					)
+				)
+			)
+		);
+	},
+	onModalLaunch: function onModalLaunch() {
+		$('#' + this.props.post.id).modal('show');
+	}
+});
+
+},{"../models/BlogPostModel":183,"./BlogDetailsComponent":175,"backbone":1,"react":173}],179:[function(require,module,exports){
+'use strict';
+
+var React = require('react');
+var Backbone = require('backbone');
+var BlogPostModel = require('../models/BlogPostModel');
+var NewPostsComponent = require('./NewPostsComponent');
 
 module.exports = React.createClass({
 	displayName: 'exports',
@@ -34537,40 +34586,7 @@ module.exports = React.createClass({
 	},
 	render: function render() {
 		var newestPosts = this.state.newPosts.map(function (post) {
-			return React.createElement(
-				'div',
-				{ className: 'jumbotron col-xs-offset-1 col-xs-10 col-sm-8 col-sm-offset-2' },
-				React.createElement(
-					'span',
-					null,
-					post.get('createdAt').toDateString(),
-					' '
-				),
-				React.createElement(
-					'h1',
-					null,
-					post.get('title')
-				),
-				React.createElement(
-					'p',
-					null,
-					post.get('blogPost').substring(0, 139) + '...'
-				),
-				React.createElement(
-					'p',
-					null,
-					React.createElement(
-						'a',
-						{ href: '#details/' + post.id, className: 'btn btn-default', dataToggle: 'modal', dataTarget: '#myModal', role: 'button' },
-						'Keep Reading'
-					)
-				),
-				React.createElement(
-					'span',
-					null,
-					post.get('firstName') + ' ' + post.get('lastName')
-				)
-			);
+			return React.createElement(NewPostsComponent, { post: post, key: post.id });
 		});
 		return React.createElement(
 			'div',
@@ -34589,12 +34605,17 @@ module.exports = React.createClass({
 					)
 				)
 			),
-			newestPosts
+			React.createElement(
+				'div',
+				null,
+				newestPosts
+			)
 		);
 	}
+
 });
 
-},{"../models/BlogPostModel":183,"backbone":1,"react":173}],180:[function(require,module,exports){
+},{"../models/BlogPostModel":183,"./NewPostsComponent":178,"backbone":1,"react":173}],180:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -34696,8 +34717,6 @@ module.exports = React.createClass({
 var React = require('react');
 var Backbone = require('backbone');
 
-var LoadingComponent = require('./LoadingComponent');
-
 module.exports = React.createClass({
 	displayName: 'exports',
 
@@ -34785,7 +34804,7 @@ module.exports = React.createClass({
 						'Rookie'
 					)
 				),
-				'! Sign up and share your voice. Whether you passionate about tech or the two-step this is place for you.  Start your own discussion or comment on another bloogers ideas.',
+				'! Sign up and share your voice. Whether you are passionate about tech or the two-step this is place for you.  Start your own discussion or comment on another bloogers ideas.',
 				React.createElement('br', null),
 				React.createElement(
 					'strong',
@@ -34864,9 +34883,6 @@ module.exports = React.createClass({
 		} else if (currentPage === 'login') {
 			currentForm = loginForm;
 		}
-		// if (this.state.loading) {
-		// 	currentForm = null;
-		// }
 		return React.createElement(
 			'div',
 			{ className: 'container-fluid' },
@@ -34904,7 +34920,7 @@ module.exports = React.createClass({
 		var _this2 = this;
 
 		e.preventDefault();
-		var user = new Parse.User();
+
 		Parse.User.logIn(this.refs.email.value, this.refs.password.value, {
 			success: function success(u) {
 				_this2.props.router.navigate('stayCurrent', { trigger: true });
@@ -34918,7 +34934,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./LoadingComponent":177,"backbone":1,"react":173}],182:[function(require,module,exports){
+},{"backbone":1,"react":173}],182:[function(require,module,exports){
 'use strict';
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -34930,7 +34946,7 @@ require('bootstrap');
 var NavComponent = require('./components/NavComponent');
 var RegisterFormComponent = require('./components/RegisterFormComponent');
 var AddBlogPostComponent = require('./components/AddBlogPostComponent');
-var NewPostsComponent = require('./components/NewPostsComponent');
+var NewPostsPageComponent = require('./components/NewPostsPageComponent');
 var BlogDetailsComponent = require('./components/BlogDetailsComponent');
 var BloggerComponent = require('./components/BloggerComponent');
 var ProfileComponent = require('./components/ProfileComponent');
@@ -34956,7 +34972,7 @@ var Router = Backbone.Router.extend({
 		ReactDOM.render(React.createElement(RegisterFormComponent, { router: r }), document.getElementById('app'));
 	},
 	current: function current() {
-		ReactDOM.render(React.createElement(NewPostsComponent, { router: r }), document.getElementById('app'));
+		ReactDOM.render(React.createElement(NewPostsPageComponent, { router: r }), document.getElementById('app'));
 	},
 	details: function details(id) {
 		console.log(id);
@@ -34985,7 +35001,7 @@ Backbone.history.start();
 
 ReactDOM.render(React.createElement(NavComponent, { router: r }), document.getElementById('nav'));
 
-},{"./components/AddBlogPostComponent":174,"./components/BlogDetailsComponent":175,"./components/BloggerComponent":176,"./components/NavComponent":178,"./components/NewPostsComponent":179,"./components/ProfileComponent":180,"./components/RegisterFormComponent":181,"backbone":1,"bootstrap":3,"jquery":17,"react":173,"react-dom":18}],183:[function(require,module,exports){
+},{"./components/AddBlogPostComponent":174,"./components/BlogDetailsComponent":175,"./components/BloggerComponent":176,"./components/NavComponent":177,"./components/NewPostsPageComponent":179,"./components/ProfileComponent":180,"./components/RegisterFormComponent":181,"backbone":1,"bootstrap":3,"jquery":17,"react":173,"react-dom":18}],183:[function(require,module,exports){
 'use strict';
 
 module.exports = Parse.Object.extend({

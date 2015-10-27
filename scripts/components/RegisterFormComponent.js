@@ -1,14 +1,12 @@
 var React = require('react');
 var Backbone = require('backbone');
 
-var LoadingComponent = require('./LoadingComponent');
-
 module.exports = React.createClass({
 	getInitialState: function() {
-	    return {
-	          error: null,
-	          loading: null
-	    };
+		return {
+			error: null,
+			loading: null
+		};
 	},
 	render: function() {
 		var currentPage = Backbone.history.getFragment();
@@ -40,7 +38,8 @@ module.exports = React.createClass({
 			<div className="well well-lg col-xs-12 col-sm-8 col-sm-offset-2">
 				<h1>Register</h1>
 				<p>
-					Become a contributor on <span className="brLogo">Blog<span className="highlight">Rookie</span></span>! Sign up and share your voice. Whether you
+					Become a contributor on <span className="brLogo">Blog<span className="highlight">Rookie</span></span>! 
+					Sign up and share your voice. Whether you are
 					passionate about tech or the two-step this is place for you.  Start your own discussion
 					or comment on another bloogers ideas.<br /><strong>Take the first step here...</strong>
 				</p>
@@ -76,9 +75,6 @@ module.exports = React.createClass({
 		} else if (currentPage === 'login') {
 			currentForm = loginForm
 		}
-		// if (this.state.loading) {
-		// 	currentForm = null;
-		// }
 		return (
 			<div className="container-fluid">
 				<div className="row">
@@ -113,7 +109,7 @@ module.exports = React.createClass({
 	},
 	onLogin: function(e) {
 		e.preventDefault();
-		var user = new Parse.User();
+		
 		Parse.User.logIn(
 			this.refs.email.value,
 			this.refs.password.value,

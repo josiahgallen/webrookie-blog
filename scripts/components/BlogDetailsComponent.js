@@ -6,7 +6,6 @@ module.exports = React.createClass({
 	getInitialState: function() {
 		return{
 			id: this.props.id,
-			currentPost: []
 		}
 	},
 	componentWillMount: function() {
@@ -21,23 +20,14 @@ module.exports = React.createClass({
 		)
 	},
 	render: function() {
-		console.log(this.state.id);
-		console.log(this.state.currentPost);
-		var currentPost = this.state.currentPost.map((post) => {
-			return(
-				<div className="jumboWrapper blogDetailView">
-				<div className="jumbotron col-xs-offset-1 col-xs-10 col-sm-8 col-sm-offset-2">
-					<a className="profLink" href={'#blogger/'+post.get('user')} ><img src={post.get('picture')} className="blogPic" /><span> {post.get('firstName')+' '+ post.get('lastName')} </span></a><span className="rightSide">{post.get('category')} </span>
-  					<h1>{post.get('title')}</h1>
-  					<p>{post.get('blogPost')}</p>
-  					<span className="rightSide">{post.get('createdAt').toDateString()} </span>
-  					<span className="label label-info">{post.get('tags')}</span>
-				</div>
-				</div>
-			)
-		})
 		return(
-			<h1>{currentPost}</h1>
+			<div>
+				<a className="profLink" href={'#blogger/'+this.props.post.get('user')} ><img src={this.props.post.get('picture')} className="blogPic" /><span> {this.props.post.get('firstName')+' '+ this.props.post.get('lastName')} </span></a><span className="rightSide">{this.props.post.get('category')} </span>
+				<h1>{this.props.post.get('title')}</h1>
+				<p>{this.props.post.get('blogPost')}</p>
+				<span className="rightSide">{this.props.post.get('createdAt').toDateString()} </span>
+				<span className="label label-info">{this.props.post.get('tags')}</span>
+			</div>
 		)
 	}
 })

@@ -30,10 +30,14 @@ body {
   .navbar-default span {
     color: #3BA3FF; }
 
-.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:focus,
+.navbar-default .navbar-nav > .active > a:hover {
   background-color: #FFBE00; }
 
-.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover {
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:focus,
+.navbar-default .navbar-nav > .open > a:hover {
   background-color: #FFBE00; }
 
 .navbar .dropdown-menu li a:hover {
@@ -70,7 +74,7 @@ body {
   color: #3BA3FF; }
 
 .blogPic {
-  width: 1em;
+  width: 6em;
   border-radius: 50%; }
 
 .blogDetailView {

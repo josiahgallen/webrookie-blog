@@ -24,18 +24,16 @@ module.exports = React.createClass({
 			return(
 				<div className="jumbotron col-xs-offset-1 col-xs-10 col-sm-8 col-sm-offset-2">
 					<span>{post.get('createdAt').toDateString()} </span>
-  					<h1>{post.get('title')}</h1>
-  					<p>{post.get('blogPost').substring(0,139)+'...'}</p>
-  					<p><a href={'#details/'+post.id} className="btn btn-default" dataToggle="modal" dataTarget="#myModal" role="button">Keep Reading</a></p>
-  					<span>{post.get('firstName')+' '+ post.get('lastName')}</span>
+					<h1>{post.get('title')}</h1>
+					<p>{post.get('blogPost').substring(0,139)+'...'}</p>
+					<p><a href={'#details/'+post.id} className="btn btn-default" dataToggle="modal" dataTarget="#myModal" role="button">Keep Reading</a></p>
+					<span>{post.get('firstName')+' '+ post.get('lastName')}</span>
 				</div>
 			)
 		})
 		return(
 			<div className='jumboWrapper'>
-				
 				{newestPosts}
-				
 			</div>
 		)
 	}

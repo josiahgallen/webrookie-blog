@@ -1,158 +1,171 @@
-$logoFont: 'Orbitron', sans-serif;
+$logoFont: 'Orbitron',sans-serif;
 $navBackgroundColor: #E54231;
 $themeFontColor: #CC1B64;
 $navFontColor: #3BA3FF;
 $bodyFontColor: #FFBE00;
 $contentBackgroundColor: rgba(229, 66, 49, .8);
-body{
-	margin: 0;
-	background-color: $navFontColor;
+body {
+    margin: 0;
+    background-color: $navFontColor;
 }
+
 .navbar {
-	border-radius: 0;
-	color: $themeFontColor;
-
-	.active>a:focus {
-		background-color: $navFontColor;
-	}
-
-	.dropdown-menu {
-		background-color: $navBackgroundColor;
-		li {
-			a {
-				color: $navFontColor;
-			}
-		}
-	}
+    border-radius: 0;
+    color: $themeFontColor;
+    .active>a:focus {
+        background-color: $navFontColor;
+    }
+    .dropdown-menu {
+        background-color: $navBackgroundColor;
+        li {
+            a {
+                color: $navFontColor;
+            }
+        }
+    }
 }
+
 .navbar-default {
-	background-color: $navBackgroundColor;
-	border: none;
-	.navbar-brand {
-		font-family: $logoFont;
-		color: $navFontColor;
-		font-weight: 700;
-		.highlight{
-			color: $bodyFontColor;
-		}
-
-	}
-	.navbar-toggle {
-		border-color: $navFontColor;
-		background-color: $bodyFontColor;
-		border: none;
-		.icon-bar {
-			background-color: $navFontColor;
-		}
-	}
- 	span {
- 		color: $navFontColor;
- 	}
+    background-color: $navBackgroundColor;
+    border: none;
+    .navbar-brand {
+        font-family: $logoFont;
+        color: $navFontColor;
+        font-weight: 700;
+        .highlight {
+            color: $bodyFontColor;
+        }
+    }
+    .navbar-toggle {
+        border-color: $navFontColor;
+        background-color: $bodyFontColor;
+        border: none;
+        .icon-bar {
+            background-color: $navFontColor;
+        }
+    }
+    span {
+        color: $navFontColor;
+    }
 }
 
-.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
-	background-color: $bodyFontColor;
+.navbar-default .navbar-nav>.active>a,
+.navbar-default .navbar-nav>.active>a:focus,
+.navbar-default .navbar-nav>.active>a:hover {
+    background-color: $bodyFontColor;
 }
-.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
-	background-color: $bodyFontColor;
-	}
-	.navbar .dropdown-menu li a:hover {
-		background-color: $bodyFontColor;
-	}
+
+.navbar-default .navbar-nav>.open>a,
+.navbar-default .navbar-nav>.open>a:focus,
+.navbar-default .navbar-nav>.open>a:hover {
+    background-color: $bodyFontColor;
+}
+
+.navbar .dropdown-menu li a:hover {
+    background-color: $bodyFontColor;
+}
 
 .well {
-	background-color: $contentBackgroundColor;
-	color: $bodyFontColor;
-	margin-top: 5em;
-	h1 {
-		font-family: $logoFont;
-	}
+    background-color: $contentBackgroundColor;
+    color: $bodyFontColor;
+    margin-top: 5em;
+    h1 {
+        font-family: $logoFont;
+    }
 }
+
 .brLogo {
-	font-family: $logoFont;
-	.highlight {
-		color: $navFontColor;
-	}
+    font-family: $logoFont;
+    .highlight {
+        color: $navFontColor;
+    }
 }
+
 .btn-default {
-	background-color: $navFontColor;
-	box-shadow: 5px 5px 2.5px 0px rgba(0,0,0,0.75);
-	float: right;
-	color: $bodyFontColor;
-	border: none;
-	font-family: $logoFont;
+    background-color: $navFontColor;
+    box-shadow: 5px 5px 2.5px 0px rgba(0, 0, 0, 0.75);
+    float: right;
+    color: $bodyFontColor;
+    border: none;
+    font-family: $logoFont;
 }
+
 .alert-danger {
-	background-color: $navBackgroundColor;
-	color: $bodyFontColor;
+    background-color: $navBackgroundColor;
+    color: $bodyFontColor;
 }
 
 .addForm {
-	.btn-default {
-		
-		clear: left;
-	}
-}
-.profLink {
-	color: $navFontColor;
-}
-.blogPic {
-		width: 1em;
-		border-radius: 50%;
-	}
-.blogDetailView {
-	margin-top: 3em;
-}
-.rightSide {
-	float: right;
-}
-span .label .label-success {
-	clear: left;
-}
-.jumboWrapper {
-	.jumbotron {
-		background-color: $contentBackgroundColor;
-		color: $bodyFontColor;
-		h1 {
-			font-family: $logoFont;
-		}
-	}
-	.heroImage {
-			margin-top: 0;
-			text-align: center;
-			background-image: url('../images/Running-at-sunset.jpg');
-			background-size: cover;
-			background-repeat: none;
-			padding: 10em 0 7em 0;
-			.highlight {
-				color: $navFontColor;
-			}
-		}
+    .btn-default {
+        clear: left;
+    }
 }
 
-.panel  {
-	margin-top: 5em;
-	background-color: $contentBackgroundColor;
-	border: none;
-	padding-bottom: 1em;
-	.panel-heading {
-		border: none;
-		overflow: hidden;
-		background-color: $bodyFontColor;
-		color: $navFontColor;
-		img {
-			float: right;
-			border-radius: 50%;
-			width: 5em;
-		}
-		h3 {
-			float: left;
-		}
-	}
+.profLink {
+    color: $navFontColor;
+}
+
+.blogPic {
+    width: 6em;
+    border-radius: 50%;
+}
+
+.blogDetailView {
+    margin-top: 3em;
+}
+
+.rightSide {
+    float: right;
+}
+
+span .label .label-success {
+    clear: left;
+}
+
+.jumboWrapper {
+    .jumbotron {
+        background-color: $contentBackgroundColor;
+        color: $bodyFontColor;
+        h1 {
+            font-family: $logoFont;
+        }
+    }
+    .heroImage {
+        margin-top: 0;
+        text-align: center;
+        background-image: url('../images/Running-at-sunset.jpg');
+        background-size: cover;
+        background-repeat: none;
+        padding: 10em 0 7em 0;
+        .highlight {
+            color: $navFontColor;
+        }
+    }
+}
+
+.panel {
+    margin-top: 5em;
+    background-color: $contentBackgroundColor;
+    border: none;
+    padding-bottom: 1em;
+    .panel-heading {
+        border: none;
+        overflow: hidden;
+        background-color: $bodyFontColor;
+        color: $navFontColor;
+        img {
+            float: right;
+            border-radius: 50%;
+            width: 5em;
+        }
+        h3 {
+            float: left;
+        }
+    }
 }
 
 @media screen and(min-width: 480px) {
-	.jumboWrapper > .heroImage {
-		padding: 17em 0 15em 0;
-	}
+    .jumboWrapper > .heroImage {
+        padding: 17em 0 15em 0;
+    }
 }
